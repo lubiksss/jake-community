@@ -19,6 +19,12 @@ export class BoardsService {
     this.boards = this.boards.filter((board) => board.id !== id);
   }
 
+  updateBoardStatusById(id: string, status: BoardStatus): Board {
+    const board = this.getBoardById(id);
+    board.status = status;
+    return board;
+  }
+
   createBoard(createBoardDto: CreateBoardDto) {
     const { title, description } = createBoardDto;
     const board: Board = {
