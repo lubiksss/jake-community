@@ -25,8 +25,8 @@ export class BoardsService {
   getBoardById(id: number): Promise<Board> {
     return this.boardRepository.getBoardById(id);
   }
-  deleteBoardById(id: number): Promise<void> {
-    return this.boardRepository.deleteBoardById(id);
+  deleteBoardById(id: number, user: User): Promise<void> {
+    return this.boardRepository.deleteBoardById(id, user);
   }
 
   updateBoardStatusById(id: number, status: BoardStatus): Promise<Board> {
