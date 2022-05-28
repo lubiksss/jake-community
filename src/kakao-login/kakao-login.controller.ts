@@ -1,6 +1,9 @@
 import { Controller, Get, Query, Res } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { lastValueFrom, map } from 'rxjs';
+import * as config from 'config';
+
+const kakaoConfig = config.get('kakao');
 
 @Controller('kakao')
 export class KakaoLoginController {
@@ -23,8 +26,8 @@ export class KakaoLoginController {
   @Get('/login')
   login(@Res() res): void {
     const HOST_NAME = 'https://kauth.kakao.com';
-    const REST_API_KEY = 'f4a05281d374854a6c7285ffd1a01205';
-    const REDIRECT_URI = 'http://localhost:3000/kakao/redirect';
+    const REST_API_KEY = kakaoConfig.clientID;
+    const REDIRECT_URI = kakaoConfig.callbackURL;
     const URL = `${HOST_NAME}/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
     return res.redirect(URL);
   }
@@ -35,8 +38,8 @@ export class KakaoLoginController {
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded;cahrset=utf-8',
     };
-    const REST_API_KEY = 'f4a05281d374854a6c7285ffd1a01205';
-    const REDIRECT_URI = 'http://localhost:3000/kakao/redirect';
+    const REST_API_KEY = kakaoConfig.clientID;
+    const REDIRECT_URI = kakaoConfig.callbackURL;
     const URL = `${HOST_NAME}/oauth/token?grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${AUTHORIZE_CODE}`;
     const data = await lastValueFrom(
       this.httpService.post(URL, '', { headers }).pipe(map((res) => res.data)),
