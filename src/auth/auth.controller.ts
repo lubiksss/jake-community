@@ -27,6 +27,7 @@ export class AuthController {
   signIn(
     @Body(ValidationPipe) authCredentialDto: AuthCredentialDto,
   ): Promise<{ accessToken: string }> {
+    console.log('login part');
     return this.authService.signIn(authCredentialDto);
   }
 
