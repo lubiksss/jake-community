@@ -11,7 +11,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pg_data_test:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
@@ -22,8 +22,8 @@ services:
     ports:
       - "8888:80"
     volumes:
-      - pgadmin_data:/var/lib/pgadmin
+      - pgadmin_data_test:/var/lib/pgadmin
 
 volumes:
-  pg_data:
-  pgadmin_data:
+  pg_data_test:
+  pgadmin_data_test:
